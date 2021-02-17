@@ -3,6 +3,7 @@ import cv2
 import os
 import matplotlib.pyplot as plt
 
+# PATH TO THE THE VIDEO FRAMES
 videopath = 'data/PETS2006/input/'
 
 def generate_bg(videopath):
