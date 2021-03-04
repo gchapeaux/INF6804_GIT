@@ -22,8 +22,12 @@ def bg_sub(query_path, n=15, background=None, videopath=None):
     if background is None:
         background = generate_bg(videopath)
     image_query = (cv2.imread(query_path,cv2.IMREAD_GRAYSCALE)).astype(float)
-    return np.abs(image_query-background) > n 
+    fg = np.abs(image_query-background) > n 
+    return fg
 
+def bg_sub_imshow(fg):
+    plt.imshow(~fg, cmap = plt.get_cmap('binary'))
+    plt.show()
 
 # PATH TO THE THE VIDEO FRAMES
 video_path = 'data/PETS2006/input/'
@@ -32,6 +36,5 @@ query_path = 'data/PETS2006/input/in000081.jpg'
 
 bg = generate_bg(video_path)
 fg = bg_sub(query_path, background= bg)
-plt.imshow(~fg, cmap = plt.get_cmap('binary'))
-plt.show()
 
+bg_sub_imshow(fg)
