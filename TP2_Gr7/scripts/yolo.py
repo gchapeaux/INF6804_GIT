@@ -10,7 +10,7 @@ import os
 Source : https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/
 '''
 
-def yolo_detection(path_to_yolo, path_to_query, min_confidence=0.5, threshold=0.3, verbose = True):
+def yolo_detection(path_to_yolo, path_to_query, min_confidence=0.5, threshold=0.3, verbose = True, show=True):
 
     # load the COCO class labels our YOLO model was trained on
     labelsPath = os.path.sep.join([path_to_yolo, "coco.names"])
@@ -115,21 +115,8 @@ def yolo_detection(path_to_yolo, path_to_query, min_confidence=0.5, threshold=0.
     # convert the image frame BGR to RGB color space
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-    return image
+    if show:
+        plt.imshow(image)
+        plt.show()
 
-
-def yolo_imshow(image):
-	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-	plt.imshow(image)
-	plt.grid(False)
-	plt.show()
-
-# PATH TO THE YOLO RECOGNITION SYSTEM 
-yolo_path = 'yolo-object-detection/yolo-coco'
-
-# PATH TO THE QUERY PICTURE
-query_path = 'data/PETS2006/input/in000040.jpg'
-
-image = yolo_detection(yolo_path, query_path)
-
-yolo_imshow(image)
+    return image, boxes
