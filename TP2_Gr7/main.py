@@ -26,12 +26,13 @@ def main(path_to_data, query_id):
     video_path = path_to_data+"input/"
 
     ipt_img = Image.open(input_path)
+    shape = ipt_img.size
     gt_img, gt_boxes = gt_detection(gt_path, show=False)
     bgs_img, bgs_boxes = bgs_detection(input_path, video_path, show=False)
     yolo_img, yolo_boxes = yolo_detection(yolo_path, input_path, verbose=False, show=False)
 
-    bgs_iou = global_iou(gt_boxes, bgs_boxes)
-    yolo_iou = global_iou(gt_boxes, yolo_boxes)
+    bgs_iou = global_iou(shape, gt_boxes, bgs_boxes)
+    yolo_iou = global_iou(shape, gt_boxes, yolo_boxes)
 
     print("IoU metric")
     print("> Background substraction : "+str(bgs_iou))

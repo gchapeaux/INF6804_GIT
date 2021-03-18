@@ -10,19 +10,19 @@ import matplotlib.pyplot as plt
 #Region[Red] Parameters
 
 EROSION_SIZE = 5
-DILATATION_SIZE = 20
-BG_SENSITIVITY = 15
+DILATATION_SIZE = 15
+BG_SENSITIVITY = 12
 
 #EndRegion
 
 #Region[Yellow] Functions 
 
 # Generate background from the first 300 frames of the video
-def bgs_bg(video_path):
+def bgs_bg(video_path, bg_set_size=50):
     nb_img = 0
     moy = None
     var = None
-    for file in os.listdir(video_path):
+    for file in os.listdir(video_path)[0:bg_set_size]:
         if file.endswith(".jpg") or file.endswith(".png"):
             nb_img += 1  
             image = (cv2.imread(os.path.join(video_path, file),cv2.IMREAD_GRAYSCALE)).astype(float)
@@ -42,8 +42,8 @@ def bgs_bg(video_path):
 def bgs_fg(query_path, background, s=BG_SENSITIVITY):
     moy, var = background
     image_query = (cv2.imread(query_path,cv2.IMREAD_GRAYSCALE)).astype(float)
-    #fg = np.abs(image_query-moy) > s*np.sqrt(var) 
-    fg = np.abs(image_query-moy) > s 
+    fg = np.abs(image_query-moy) > s*np.sqrt(var) 
+    #fg = np.abs(image_query-moy) > s 
     return fg
 
 # Process bounding boxes
