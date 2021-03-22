@@ -13,7 +13,9 @@ def bbox_mask(shape, boxes):
 def iou(mask1, mask2):
     intersect = mask1 & mask2
     union = mask1 | mask2
-
+    if np.sum(union) == 0.0:
+        return 0.0
+        
     return np.sum(intersect)/np.sum(union)
 
 def global_iou(shape, boxes1, boxes2):

@@ -10,7 +10,7 @@ import os
 Source : https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/
 '''
 
-def yolo_detection(path_to_yolo, path_to_query, min_confidence=0.5, threshold=0.3, verbose = True, show=True):
+def yolo_detection(path_to_query, path_to_yolo, min_confidence=0.5, threshold=0.3, verbose = True, show=True):
 
     # load the COCO class labels our YOLO model was trained on
     labelsPath = os.path.sep.join([path_to_yolo, "coco.names"])

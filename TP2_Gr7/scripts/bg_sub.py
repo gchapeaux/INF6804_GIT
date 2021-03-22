@@ -9,16 +9,17 @@ import matplotlib.pyplot as plt
 
 #Region[Red] Parameters
 
+BG_SET_SIZE = 100
 EROSION_SIZE = 5
 DILATATION_SIZE = 15
-BG_SENSITIVITY = 12
+BG_SENSITIVITY = 20
 
 #EndRegion
 
 #Region[Yellow] Functions 
 
-# Generate background from the first 300 frames of the video
-def bgs_bg(video_path, bg_set_size=50):
+# Generate background from the first frames of the video
+def bgs_bg(video_path, bg_set_size=BG_SET_SIZE):
     nb_img = 0
     moy = None
     var = None
@@ -47,7 +48,7 @@ def bgs_fg(query_path, background, s=BG_SENSITIVITY):
     return fg
 
 # Process bounding boxes
-def bgs_detection(query_path, video_path, bg=None, erosion_size = EROSION_SIZE, dilatation_size = DILATATION_SIZE, show=True):
+def bgs_detection(query_path, video_path, bg=None, erosion_size = EROSION_SIZE, dilatation_size = DILATATION_SIZE, verbose=False, show=True):
     
     if bg is None:
         bg = bgs_bg(video_path)

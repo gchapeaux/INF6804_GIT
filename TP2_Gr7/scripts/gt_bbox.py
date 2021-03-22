@@ -7,7 +7,11 @@ def gt_detection(path_to_query, show=True):
 
     image_query = (cv2.imread(path_to_query, cv2.IMREAD_GRAYSCALE))
 
-    contours, hierarchy = cv2.findContours(image_query, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    
+    threshold = 200
+    _, img_thresh = cv2.threshold(image_query, threshold, 255, 0)
+
+    contours, hierarchy = cv2.findContours(img_thresh, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     boxes = []
     img = cv2.cvtColor(image_query, cv2.COLOR_GRAY2RGB)
     for cnt in contours:
